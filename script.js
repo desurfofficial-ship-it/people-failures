@@ -1,46 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const searchInput = document.getElementById('search');
-  const filters = document.querySelectorAll('.filter');
-  const cards = document.querySelectorAll('.card');
-  const entryCount = document.getElementById('entry-count');
-  const noResults = document.getElementById('no-results');
+  const search = document.getElementById('search');
+  const columns = document.querySelectorAll('.column');
 
-  let activeFilter = 'all';
-
-  function updateVisible() {
-    const query = (searchInput.value || '').toLowerCase().trim();
-    let visible = 0;
-
-    cards.forEach(card => {
-      const name = (card.dataset.name || '').toLowerCase();
-      const category = card.dataset.category || '';
-      const text = card.textContent.toLowerCase();
-
-      const matchesFilter = activeFilter === 'all' || category === activeFilter;
-      const matchesSearch = !query || name.includes(query) || text.includes(query);
-
-      if (matchesFilter && matchesSearch) {
-        card.classList.remove('hidden');
-        visible++;
-      } else {
-        card.classList.add('hidden');
-      }
+  function updateCounts() {
+    columns.forEach(col => {
+      const cards = col.querySelectorAll('.card:not(.hidden)');
+      const countEl = col.querySelector('[data-count]');
+      if (countEl) countEl.textContent = cards.length;
     });
-
-    if (entryCount) entryCount.textContent = visible;
-    if (noResults) noResults.hidden = visible > 0;
   }
 
-  searchInput.addEventListener('input', updateVisible);
-
-  filters.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filters.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeFilter = btn.dataset.filter;
-      updateVisible();
+  function filter() {
+    const q = (search.value || '').toLowerCase().trim();
+    document.querySelectorAll('.card').forEach(card => {
+      const text = card.textContent.toLowerCase();
+      const name = (card.dataset.name || '').toLowerCase();
+      const show = !q || name.includes(q) || text.includes(q);
+      card.classList.toggle('hidden', !show);
     });
-  });
+    updateCounts();
+  }
 
-  updateVisible();
+  search.addEventListener('input', filter);
+  updateCounts();
 });
