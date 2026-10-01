@@ -601,8 +601,27 @@
     if (d.img) {
       var img = document.createElement('img');
       img.alt = d.name || '';
+      // Set onload BEFORE src — required for cached images
+      img.onload = function () {
+        av.textContent = '';
+        av.appendChild(img);
+      };
+      img.onerror = function () {
+        // silent — initials remain visible as fallback
+        img.remove();
+      };
       img.src = imgUrl(d.img, 160);
-      img.onload = function () { av.textContent = ''; av.appendChild(img); };
+      // If image is already complete (cached), onload may have already fired
+      // before we attached the handler. Force a check.
+      if (img.complete) {
+        if (img.naturalWidth > 0) {
+          av.textContent = '';
+          av.appendChild(img);
+        } else {
+          // Image loaded but failed (broken). Remove.
+          img.remove();
+        }
+      }
     }
 
     updateSaveBtn();
