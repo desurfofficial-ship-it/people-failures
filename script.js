@@ -4,7 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('modal');
   const modalBackdrop = document.getElementById('modal-backdrop');
   const modalClose = document.getElementById('modal-close');
-  const data = window.FAILURES || [];
+  const data = Array.isArray(window.FAILURES) ? window.FAILURES : [];
+
+  if (!data.length) {
+    board.innerHTML = '<p style="color:#9a9aa5;padding:2rem;">No data loaded. Check that data.js is available.</p>';
+    return;
+  }
 
   const categories = [
     { key: 'Technology', dot: 'tech' },
@@ -18,54 +23,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function imgUrl(filename) {
     if (!filename) return '';
-    return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename)}?width=88`;
+    return 'https://commons.wikimedia.org/wiki/Special:FilePath/' +
+      encodeURIComponent(filename) + '?width=88';
   }
 
-  function renderBoard(filter = '') {
-    const q = filter.toLowerCase().trim();
+  function escapeHtml(str) {
+    return String(str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function renderBoard(filter) {
+    const q = (filter || '').toLowerCase().trim();
     board.innerHTML = '';
 
-    categories.forEach(cat => {
-      const items = data.filter(d => {
+    categories.forEach(function (cat) {
+      const items = data.filter(function (d) {
         if (d.category !== cat.key) return false;
         if (!q) return true;
-        const blob = `${d.name} ${d.fail} ${d.story} ${d.category}`.toLowerCase();
-        return blob.includes(q);
+        var blob = [d.name, d.fail, d.story, d.category, d.takeaway].join(' ').toLowerCase();
+        return blob.indexOf(q) !== -1;
       });
 
-      const col = document.createElement('section');
-      col.className = 'column';
-      col.innerHTML = `
-        <div class="column-header">
-          <span class="column-dot ${cat.dot}"></span>
-          <h2>${cat.key}</h2>
-          <span class="count">${items.length}</span>
-        </div>
-        <div class="column-cards"></div>
-      `;
-      const cardsEl = col.querySelector('.column-cards');
+      if (!items.length && q) return; // hide empty columns when filtering
 
-      items.forEach(d => {
-        const card = document.createElement('article');
+      var col = document.createElement('section');
+      col.className = 'column';
+      col.innerHTML =
+        '<div class="column-header">' +
+          '<span class="column-dot ' + cat.dot + '"></span>' +
+          '<h2>' + escapeHtml(cat.key) + '</h2>' +
+          '<span class="count">' + items.length + '</span>' +
+        '</div>' +
+        '<div class="column-cards"></div>';
+
+      var cardsEl = col.querySelector('.column-cards');
+
+      items.forEach(function (d) {
+        var card = document.createElement('article');
         card.className = 'card';
         card.tabIndex = 0;
         card.setAttribute('role', 'button');
-        card.innerHTML = `
-          <div class="card-top">
-            <div class="pic">
-              ${d.img ? `<img src="${imgUrl(d.img)}" alt="" loading="lazy" onerror="this.parentElement.classList.add('fallback')">` : ''}
-              <span class="avatar" style="--bg:${d.color}">${d.initials}</span>
-            </div>
-            <div>
-              <h3>${d.name}</h3>
-              <p class="fail">${d.fail}</p>
-            </div>
-          </div>
-          <p class="body">${(d.story || '').slice(0, 110)}…</p>
-          <div class="card-meta">${d.year || ''} · click for playbook</div>
-        `;
-        card.addEventListener('click', () => openModal(d));
-        card.addEventListener('keydown', e => {
+        card.setAttribute('aria-label', d.name + ' — open playbook');
+
+        var picHtml =
+          '<div class="pic" style="--bg:' + escapeHtml(d.color || '#555') + '">' +
+            '<span class="avatar">' + escapeHtml(d.initials || '?') + '</span>' +
+            (d.img
+              ? '<img src="' + imgUrl(d.img) + '" alt="" loading="lazy" ' +
+                'onload="this.classList.add(\'loaded\')" ' +
+                'onerror="this.style.display=\'none\'">' 
+              : '') +
+          '</div>';
+
+        var excerpt = (d.story || '').slice(0, 110);
+        if ((d.story || '').length > 110) excerpt += '…';
+
+        card.innerHTML =
+          '<div class="card-top">' + picHtml +
+            '<div>' +
+              '<h3>' + escapeHtml(d.name) + '</h3>' +
+              '<p class="fail">' + escapeHtml(d.fail) + '</p>' +
+            '</div>' +
+          '</div>' +
+          '<p class="body">' + escapeHtml(excerpt) + '</p>' +
+          '<div class="card-meta">' + escapeHtml(d.year || '') + ' · click for playbook</div>';
+
+        card.addEventListener('click', function () { openModal(d); });
+        card.addEventListener('keydown', function (e) {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             openModal(d);
@@ -76,69 +103,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
       board.appendChild(col);
     });
+
+    if (!board.children.length) {
+      board.innerHTML = '<p class="empty-msg">No matches.</p>';
+    }
+  }
+
+  function listHtml(arr) {
+    if (!arr || !arr.length) return '<p>—</p>';
+    return '<ul>' + arr.map(function (a) {
+      return '<li>' + escapeHtml(a) + '</li>';
+    }).join('') + '</ul>';
   }
 
   function openModal(d) {
-    document.getElementById('modal-title').textContent = d.name;
-    document.getElementById('modal-fail').textContent = d.fail;
-    document.getElementById('modal-cat').textContent = `${d.category} · ${d.year || ''}`;
+    document.getElementById('modal-title').textContent = d.name || '';
+    document.getElementById('modal-fail').textContent = d.fail || '';
+    document.getElementById('modal-cat').textContent =
+      (d.category || '') + (d.year ? ' · ' + d.year : '');
 
-    const av = document.getElementById('modal-avatar');
+    var av = document.getElementById('modal-avatar');
     av.innerHTML = '';
-    av.style.background = d.color;
+    av.style.background = d.color || '#555';
+    av.textContent = d.initials || '';
+
     if (d.img) {
-      const img = document.createElement('img');
+      var img = document.createElement('img');
+      img.alt = d.name || '';
       img.src = imgUrl(d.img).replace('width=88', 'width=160');
-      img.alt = d.name;
-      img.onerror = () => {
-        av.textContent = d.initials;
-        img.remove();
+      img.onload = function () {
+        av.textContent = '';
+        av.appendChild(img);
       };
-      av.appendChild(img);
-    } else {
-      av.textContent = d.initials;
+      img.onerror = function () { /* keep initials */ };
     }
 
-    const body = document.getElementById('modal-body');
-    body.innerHTML = `
-      <section>
-        <h3>The story</h3>
-        <p>${d.story || ''}</p>
-      </section>
-      <section>
-        <h3>What they did</h3>
-        <p>${d.whatTheyDid || ''}</p>
-      </section>
-      <section>
-        <h3>How you can apply it</h3>
-        <ul>${(d.apply || []).map(a => `<li>${a}</li>`).join('')}</ul>
-      </section>
-      <section class="split">
-        <div>
-          <h3>Use this when</h3>
-          <ul>${(d.scenariosYes || []).map(a => `<li>${a}</li>`).join('')}</ul>
-        </div>
-        <div>
-          <h3>Don’t force it when</h3>
-          <ul>${(d.scenariosNo || []).map(a => `<li>${a}</li>`).join('')}</ul>
-        </div>
-      </section>
-      <section>
-        <h3>Resources needed</h3>
-        <ul>${(d.resources || []).map(a => `<li>${a}</li>`).join('')}</ul>
-      </section>
-      <section class="takeaway">
-        <h3>Takeaway</h3>
-        <p>${d.takeaway || ''}</p>
-      </section>
-      <section>
-        <h3>Book to read</h3>
-        <p class="book">${d.book || '—'}</p>
-      </section>
-    `;
+    document.getElementById('modal-body').innerHTML =
+      '<section><h3>The story</h3><p>' + escapeHtml(d.story) + '</p></section>' +
+      '<section><h3>What they did</h3><p>' + escapeHtml(d.whatTheyDid) + '</p></section>' +
+      '<section><h3>How you can apply it</h3>' + listHtml(d.apply) + '</section>' +
+      '<section class="split">' +
+        '<div><h3>Use this when</h3>' + listHtml(d.scenariosYes) + '</div>' +
+        '<div><h3>Don\'t force it when</h3>' + listHtml(d.scenariosNo) + '</div>' +
+      '</section>' +
+      '<section><h3>Resources needed</h3>' + listHtml(d.resources) + '</section>' +
+      '<section class="takeaway"><h3>Takeaway</h3><p>' + escapeHtml(d.takeaway) + '</p></section>' +
+      '<section><h3>Book to read</h3><p class="book">' + escapeHtml(d.book) + '</p></section>';
 
     modal.hidden = false;
     document.body.style.overflow = 'hidden';
+    modalClose.focus();
   }
 
   function closeModal() {
@@ -148,10 +162,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   modalClose.addEventListener('click', closeModal);
   modalBackdrop.addEventListener('click', closeModal);
-  document.addEventListener('keydown', e => {
+  document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && !modal.hidden) closeModal();
   });
 
-  search.addEventListener('input', () => renderBoard(search.value));
+  search.addEventListener('input', function () {
+    renderBoard(search.value);
+  });
+
   renderBoard();
 });

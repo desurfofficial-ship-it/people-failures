@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="header-center">
-      <input type="search" id="search" placeholder="Filter cards..." aria-label="Filter cards">
+      <input type="search" id="search" placeholder="Filter cards..." aria-label="Filter cards" autocomplete="off">
     </div>
     <div class="header-right">
       <span class="meta">Click a card for the full playbook</span>
@@ -40,11 +40,10 @@
     <p><a href="https://github.com/desurfofficial-ship-it/people-failures">GitHub</a></p>
   </footer>
 
-  <!-- Detail modal -->
   <div class="modal" id="modal" hidden>
     <div class="modal-backdrop" id="modal-backdrop"></div>
     <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <button class="modal-close" id="modal-close" aria-label="Close">×</button>
+      <button type="button" class="modal-close" id="modal-close" aria-label="Close">×</button>
       <div class="modal-header">
         <div class="modal-avatar" id="modal-avatar"></div>
         <div>

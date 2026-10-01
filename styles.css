@@ -72,6 +72,12 @@ body {
 .board::-webkit-scrollbar { height: 10px; }
 .board::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
 
+.empty-msg {
+  color: var(--muted);
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+}
+
 .column {
   flex: 0 0 290px; background: var(--column-bg); border-radius: 6px;
   display: flex; flex-direction: column; max-height: calc(100vh - 160px);
@@ -108,18 +114,44 @@ body {
   outline: none; transform: translateY(-1px);
 }
 .card-top { display: flex; gap: 0.65rem; margin-bottom: 0.45rem; align-items: flex-start; }
+
+/* Avatar always visible; photo layers on top when loaded */
 .pic {
-  position: relative; width: 40px; height: 40px; flex-shrink: 0;
-  border-radius: 6px; overflow: hidden; background: var(--board-bg);
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg, #555);
 }
-.pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pic .avatar {
-  position: absolute; inset: 0; display: none; align-items: center; justify-content: center;
-  background: var(--bg, #555); color: #fff; font-size: 0.75rem; font-weight: 600;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  z-index: 0;
 }
-.pic.fallback img { display: none; }
-.pic.fallback .avatar { display: flex; }
-.pic:not(:has(img)) .avatar { display: flex; }
+.pic img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.pic img.loaded {
+  opacity: 1;
+}
+
 .card-top h3 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.2rem; }
 .card .fail { font-size: 0.75rem; color: #fb923c; font-weight: 500; line-height: 1.3; }
 .card .body { font-size: 0.76rem; color: var(--muted); line-height: 1.45; margin-bottom: 0.45rem; }
@@ -132,7 +164,7 @@ body {
 .board-footer a { color: var(--accent); text-decoration: none; }
 
 /* Modal */
-.modal[hidden] { display: none; }
+.modal[hidden] { display: none !important; }
 .modal {
   position: fixed; inset: 0; z-index: 100;
   display: flex; align-items: center; justify-content: center; padding: 1rem;
@@ -150,6 +182,7 @@ body {
   position: absolute; top: 0.65rem; right: 0.75rem;
   background: transparent; border: none; color: var(--muted);
   font-size: 1.5rem; cursor: pointer; line-height: 1; padding: 0.25rem;
+  z-index: 2;
 }
 .modal-close:hover { color: var(--text); }
 .modal-header {
