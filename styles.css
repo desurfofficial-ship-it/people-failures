@@ -12,11 +12,7 @@
   --mono: 'IBM Plex Mono', ui-monospace, monospace;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: var(--font);
@@ -66,21 +62,10 @@ body {
   line-height: 1.15;
 }
 
-.logo-main {
-  font-weight: 600;
-  font-size: 0.95rem;
-}
+.logo-main { font-weight: 600; font-size: 0.95rem; }
+.logo-sub { font-size: 0.7rem; color: var(--muted); font-family: var(--mono); }
 
-.logo-sub {
-  font-size: 0.7rem;
-  color: var(--muted);
-  font-family: var(--mono);
-}
-
-.header-center {
-  flex: 1;
-  max-width: 320px;
-}
+.header-center { flex: 1; max-width: 320px; }
 
 .header-center input {
   width: 100%;
@@ -94,13 +79,8 @@ body {
   outline: none;
 }
 
-.header-center input:focus {
-  border-color: #2dd4bf;
-}
-
-.header-center input::placeholder {
-  color: var(--muted);
-}
+.header-center input:focus { border-color: #2dd4bf; }
+.header-center input::placeholder { color: var(--muted); }
 
 .header-right {
   margin-left: auto;
@@ -213,20 +193,39 @@ body {
   align-items: flex-start;
 }
 
-.avatar {
+/* Photo + avatar fallback */
+.pic {
+  position: relative;
   width: 40px;
   height: 40px;
+  flex-shrink: 0;
   border-radius: 6px;
+  overflow: hidden;
+  background: var(--board-bg);
+}
+
+.pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pic .avatar {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
   background: var(--bg, #555);
   color: #fff;
   font-size: 0.75rem;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
   letter-spacing: 0.02em;
 }
+
+.pic.fallback img { display: none; }
+.pic.fallback .avatar { display: flex; }
 
 .card-top h3 {
   font-size: 0.88rem;
@@ -268,41 +267,14 @@ body {
   text-decoration: none;
 }
 
-.board-footer a:hover {
-  text-decoration: underline;
-}
-
-.board-footer p + p {
-  margin-top: 0.25rem;
-}
+.board-footer a:hover { text-decoration: underline; }
+.board-footer p + p { margin-top: 0.25rem; }
 
 @media (max-width: 700px) {
-  .board-header {
-    flex-wrap: wrap;
-    gap: 0.6rem;
-  }
-
-  .header-center {
-    order: 3;
-    flex: 1 1 100%;
-    max-width: none;
-  }
-
+  .board-header { flex-wrap: wrap; gap: 0.6rem; }
+  .header-center { order: 3; flex: 1 1 100%; max-width: none; }
   .header-right { display: none; }
-
-  .board {
-    flex-direction: column;
-    overflow-x: visible;
-    padding: 0.75rem;
-  }
-
-  .column {
-    flex: none;
-    width: 100%;
-    max-height: none;
-  }
-
-  .column-cards {
-    max-height: 360px;
-  }
+  .board { flex-direction: column; overflow-x: visible; padding: 0.75rem; }
+  .column { flex: none; width: 100%; max-height: none; }
+  .column-cards { max-height: 360px; }
 }
