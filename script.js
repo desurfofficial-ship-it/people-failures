@@ -599,37 +599,25 @@
     av.style.background = d.color || '#555';
     av.textContent = d.initials || '';
     if (d.img) {
-      console.log('[modal-avatar] entry has img:', d.id, '->', d.img);
       var img = document.createElement('img');
       img.alt = d.name || '';
-      // Set onload BEFORE src — required for cached images
+      // Set onload BEFORE src — required for cached images that complete
+      // before the handler attaches.
       img.onload = function () {
-        console.log('[modal-avatar] onload fired for', d.id, 'naturalWidth=', img.naturalWidth);
         av.textContent = '';
         av.appendChild(img);
       };
-      img.onerror = function (e) {
-        console.error('[modal-avatar] onerror fired for', d.id, 'src=', img.src);
+      img.onerror = function () {
         // silent — initials remain visible as fallback
         img.remove();
       };
       img.src = imgUrl(d.img, 160);
-      console.log('[modal-avatar] img.src set, complete=', img.complete, 'naturalWidth=', img.naturalWidth);
       // If image is already complete (cached), onload may have already fired
-      // before we attached the handler. Force a check.
-      if (img.complete) {
-        if (img.naturalWidth > 0) {
-          console.log('[modal-avatar] cached image, appending');
-          av.textContent = '';
-          av.appendChild(img);
-        } else {
-          // Image loaded but failed (broken). Remove.
-          console.warn('[modal-avatar] cached but failed (broken)');
-          img.remove();
-        }
+      // before we attached the handler. Force the append in that case.
+      if (img.complete && img.naturalWidth > 0) {
+        av.textContent = '';
+        av.appendChild(img);
       }
-    } else {
-      console.log('[modal-avatar] no img for', d.id, '- showing initials only');
     }
 
     updateSaveBtn();
