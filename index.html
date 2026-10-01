@@ -11,16 +11,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Top bar mimicking Grokipedia / encyclopedia style -->
   <div class="top-bar">
     <div class="container top-bar-inner">
-      <a href="#" class="logo">
+      <a href="#" class="logo" aria-label="Grokipedia Failures home">
         <span class="logo-mark">G</span>
         <span class="logo-text">Grokipedia</span>
         <span class="logo-branch">/ Failures</span>
       </a>
       <div class="search-wrap">
-        <input type="search" id="search" placeholder="Search failures, people, fields..." aria-label="Search">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+        <input type="search" id="search" placeholder="Search people, failures, fields..." aria-label="Search entries">
       </div>
       <div class="top-meta">
         <span class="badge">v0.1 · Branch</span>
@@ -30,9 +33,9 @@
 
   <header class="hero">
     <div class="container">
-      <p class="breadcrumb">Grokipedia <span>›</span> Specialized Branches <span>›</span> Famous Failures</p>
+      <p class="breadcrumb">Grokipedia <span aria-hidden="true">›</span> Specialized Branches <span aria-hidden="true">›</span> Famous Failures</p>
       <h1>Famous Failures</h1>
-      <p class="lead">An encyclopedia of the setbacks, rejections, and near-collapses that preceded extraordinary success. Compiled and structured in the spirit of Grokipedia — prioritizing truth over polished myth.</p>
+      <p class="lead">An encyclopedia of the setbacks, rejections, and near-collapses that preceded extraordinary success. Structured in the spirit of Grokipedia — prioritizing the full record over polished myth.</p>
       <div class="hero-stats">
         <div class="stat"><strong id="entry-count">24</strong> entries</div>
         <div class="stat"><strong>Fact-checked</strong> by Grok</div>
@@ -41,356 +44,310 @@
     </div>
   </header>
 
-  <main class="container">
-    <div class="toolbar">
-      <div class="filters" id="filters">
-        <button class="filter active" data-filter="all">All</button>
-        <button class="filter" data-filter="Technology">Technology</button>
-        <button class="filter" data-filter="Business">Business</button>
-        <button class="filter" data-filter="Literature">Literature</button>
-        <button class="filter" data-filter="Sports">Sports</button>
-        <button class="filter" data-filter="Science">Science</button>
-        <button class="filter" data-filter="Entertainment">Entertainment</button>
-        <button class="filter" data-filter="Politics">Politics</button>
-        <button class="filter" data-filter="Fashion">Fashion</button>
+  <main>
+    <div class="container">
+      <div class="toolbar">
+        <div class="filters" id="filters" role="group" aria-label="Filter by category">
+          <button class="filter active" data-filter="all">All</button>
+          <button class="filter" data-filter="Technology">Technology</button>
+          <button class="filter" data-filter="Business">Business</button>
+          <button class="filter" data-filter="Literature">Literature</button>
+          <button class="filter" data-filter="Sports">Sports</button>
+          <button class="filter" data-filter="Science">Science</button>
+          <button class="filter" data-filter="Entertainment">Entertainment</button>
+          <button class="filter" data-filter="Media">Media</button>
+          <button class="filter" data-filter="Politics">Politics</button>
+          <button class="filter" data-filter="Fashion">Fashion</button>
+        </div>
       </div>
+
+      <div class="grid" id="grid">
+
+        <article class="card" data-category="Science" data-name="Thomas Edison">
+          <div class="card-header">
+            <span class="cat">Science</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Thomas Edison</h2>
+          <p class="fail-line">1,000+ failed attempts at a practical light bulb</p>
+          <p class="summary">Edison treated every unsuccessful experiment as data. When asked about the failures he replied that he had simply found thousands of ways that would not work. The eventual carbon-filament bulb changed daily life.</p>
+          <div class="card-footer"><span class="year">c. 1879</span></div>
+        </article>
+
+        <article class="card" data-category="Entertainment" data-name="Walt Disney">
+          <div class="card-header">
+            <span class="cat">Entertainment</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Walt Disney</h2>
+          <p class="fail-line">Fired for “lacking imagination”; early studio bankruptcies</p>
+          <p class="summary">A newspaper editor told young Walt he lacked imagination. Laugh-O-Gram went bankrupt. He later built an entertainment empire defined by imagination.</p>
+          <div class="card-footer"><span class="year">1920s–1930s</span></div>
+        </article>
+
+        <article class="card" data-category="Media" data-name="Oprah Winfrey">
+          <div class="card-header">
+            <span class="cat">Media</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Oprah Winfrey</h2>
+          <p class="fail-line">Fired from her first television job</p>
+          <p class="summary">Told she was “unfit for television” in Baltimore. She went on to become one of the most influential media figures of the modern era.</p>
+          <div class="card-footer"><span class="year">Early 1980s</span></div>
+        </article>
+
+        <article class="card" data-category="Technology" data-name="Steve Jobs">
+          <div class="card-header">
+            <span class="cat">Technology</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Steve Jobs</h2>
+          <p class="fail-line">Ousted from Apple, the company he co-founded</p>
+          <p class="summary">In 1985 Jobs was forced out. He returned in 1997 and led the company’s greatest resurgence — iMac, iPod, iPhone — reshaping multiple industries.</p>
+          <div class="card-footer"><span class="year">1985–1997</span></div>
+        </article>
+
+        <article class="card" data-category="Literature" data-name="J.K. Rowling">
+          <div class="card-header">
+            <span class="cat">Literature</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>J.K. Rowling</h2>
+          <p class="fail-line">Rejected by 12 publishers; living on benefits</p>
+          <p class="summary">Harry Potter and the Philosopher’s Stone was turned down repeatedly. A single mother’s manuscript eventually sold more than 500 million copies.</p>
+          <div class="card-footer"><span class="year">1995–1997</span></div>
+        </article>
+
+        <article class="card" data-category="Sports" data-name="Michael Jordan">
+          <div class="card-header">
+            <span class="cat">Sports</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Michael Jordan</h2>
+          <p class="fail-line">Cut from his high-school varsity basketball team</p>
+          <p class="summary">As a sophomore he was cut. He used the rejection as fuel and became widely regarded as the greatest basketball player of all time.</p>
+          <div class="card-footer"><span class="year">1978</span></div>
+        </article>
+
+        <article class="card" data-category="Business" data-name="Colonel Sanders">
+          <div class="card-header">
+            <span class="cat">Business</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Colonel Harland Sanders</h2>
+          <p class="fail-line">Recipe rejected more than 1,000 times</p>
+          <p class="summary">Sanders pitched his fried-chicken recipe to restaurant after restaurant well into his 60s. The 1,009th (or so) “no” was followed by a yes that created KFC.</p>
+          <div class="card-footer"><span class="year">1950s–1960s</span></div>
+        </article>
+
+        <article class="card" data-category="Science" data-name="Albert Einstein">
+          <div class="card-header">
+            <span class="cat">Science</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Albert Einstein</h2>
+          <p class="fail-line">Labeled slow; struggled early academically</p>
+          <p class="summary">Did not speak fluently until around age nine and was considered a weak student by some teachers. Later transformed physics with special and general relativity.</p>
+          <div class="card-footer"><span class="year">Late 1800s</span></div>
+        </article>
+
+        <article class="card" data-category="Politics" data-name="Abraham Lincoln">
+          <div class="card-header">
+            <span class="cat">Politics</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Abraham Lincoln</h2>
+          <p class="fail-line">Multiple election losses and business failures</p>
+          <p class="summary">Failed in business, lost races for legislature, Congress and Senate, and endured profound personal losses before becoming one of America’s most consequential presidents.</p>
+          <div class="card-footer"><span class="year">1830s–1860</span></div>
+        </article>
+
+        <article class="card" data-category="Fashion" data-name="Vera Wang">
+          <div class="card-header">
+            <span class="cat">Fashion</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Vera Wang</h2>
+          <p class="fail-line">Failed to make the U.S. Olympic figure-skating team</p>
+          <p class="summary">Her Olympic dream ended early. She pivoted into fashion editorial work and later became one of the world’s most celebrated bridal designers.</p>
+          <div class="card-footer"><span class="year">1960s–1980s</span></div>
+        </article>
+
+        <article class="card" data-category="Literature" data-name="Stephen King">
+          <div class="card-header">
+            <span class="cat">Literature</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Stephen King</h2>
+          <p class="fail-line">Carrie rejected ~30 times; manuscript thrown away</p>
+          <p class="summary">King discarded the draft of Carrie. His wife retrieved it. The novel launched one of the most commercially successful writing careers in modern history.</p>
+          <div class="card-footer"><span class="year">1973–1974</span></div>
+        </article>
+
+        <article class="card" data-category="Technology" data-name="Elon Musk">
+          <div class="card-header">
+            <span class="cat">Technology</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Elon Musk</h2>
+          <p class="fail-line">Near-bankruptcy of both Tesla and SpaceX in 2008</p>
+          <p class="summary">In late 2008 both companies were days from collapse. Musk committed remaining personal capital. The companies later redefined electric vehicles and private spaceflight.</p>
+          <div class="card-footer"><span class="year">2008</span></div>
+        </article>
+
+        <article class="card" data-category="Business" data-name="Henry Ford">
+          <div class="card-header">
+            <span class="cat">Business</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Henry Ford</h2>
+          <p class="fail-line">Two failed automobile companies before Ford Motor</p>
+          <p class="summary">Early ventures collapsed. The third attempt introduced the Model T and the moving assembly line, transforming manufacturing and personal mobility.</p>
+          <div class="card-footer"><span class="year">1899–1908</span></div>
+        </article>
+
+        <article class="card" data-category="Business" data-name="James Dyson">
+          <div class="card-header">
+            <span class="cat">Business</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>James Dyson</h2>
+          <p class="fail-line">5,126 failed prototypes over 15 years</p>
+          <p class="summary">Dyson spent years and his savings iterating bagless vacuum designs. Prototype 5,127 worked. Manufacturers refused; he built the company himself.</p>
+          <div class="card-footer"><span class="year">1978–1993</span></div>
+        </article>
+
+        <article class="card" data-category="Entertainment" data-name="Steven Spielberg">
+          <div class="card-header">
+            <span class="cat">Entertainment</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Steven Spielberg</h2>
+          <p class="fail-line">Rejected multiple times by USC film school</p>
+          <p class="summary">Denied entry to the University of Southern California’s film program. He later directed Jaws, the first modern summer blockbuster, and became one of cinema’s defining figures.</p>
+          <div class="card-footer"><span class="year">1960s–1970s</span></div>
+        </article>
+
+        <article class="card" data-category="Business" data-name="Soichiro Honda">
+          <div class="card-header">
+            <span class="cat">Business</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Soichiro Honda</h2>
+          <p class="fail-line">Rejected by Toyota; factory destroyed in WWII</p>
+          <p class="summary">Early piston-ring work was rejected. A factory was bombed and later leveled by an earthquake. Honda rebuilt and created one of the world’s great automotive companies.</p>
+          <div class="card-footer"><span class="year">1930s–1940s</span></div>
+        </article>
+
+        <article class="card" data-category="Literature" data-name="Dr. Seuss">
+          <div class="card-header">
+            <span class="cat">Literature</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Dr. Seuss (Theodor Geisel)</h2>
+          <p class="fail-line">First book rejected by 27 publishers</p>
+          <p class="summary">And to Think That I Saw It on Mulberry Street was turned down 27 times. A chance encounter on the street led to publication and a career that shaped children’s literature.</p>
+          <div class="card-footer"><span class="year">1937</span></div>
+        </article>
+
+        <article class="card" data-category="Technology" data-name="Bill Gates">
+          <div class="card-header">
+            <span class="cat">Technology</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Bill Gates</h2>
+          <p class="fail-line">Early Traf-O-Data venture failed</p>
+          <p class="summary">Gates and Paul Allen’s first company, built around traffic-data processing, did not succeed commercially. Lessons from the failure informed the later founding of Microsoft.</p>
+          <div class="card-footer"><span class="year">1972–1975</span></div>
+        </article>
+
+        <article class="card" data-category="Business" data-name="Arianna Huffington">
+          <div class="card-header">
+            <span class="cat">Business</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Arianna Huffington</h2>
+          <p class="fail-line">Second book rejected by 36 publishers</p>
+          <p class="summary">After early writing success she faced a long string of rejections. She later co-founded The Huffington Post, which was sold for hundreds of millions.</p>
+          <div class="card-footer"><span class="year">1980s–2005</span></div>
+        </article>
+
+        <article class="card" data-category="Sports" data-name="Babe Ruth">
+          <div class="card-header">
+            <span class="cat">Sports</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Babe Ruth</h2>
+          <p class="fail-line">Record for most strikeouts in an era of home-run glory</p>
+          <p class="summary">Ruth held the career strikeout record for decades while also rewriting the home-run record books. Failure at the plate was inseparable from his dominance.</p>
+          <div class="card-footer"><span class="year">1910s–1930s</span></div>
+        </article>
+
+        <article class="card" data-category="Science" data-name="Robert Goddard">
+          <div class="card-header">
+            <span class="cat">Science</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Robert Goddard</h2>
+          <p class="fail-line">Ridiculed by the press for rocket research</p>
+          <p class="summary">The New York Times mocked his ideas about spaceflight. Goddard continued private experiments and is now recognized as a father of modern rocketry.</p>
+          <div class="card-footer"><span class="year">1920s</span></div>
+        </article>
+
+        <article class="card" data-category="Entertainment" data-name="Fred Astaire">
+          <div class="card-header">
+            <span class="cat">Entertainment</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Fred Astaire</h2>
+          <p class="fail-line">Early screen-test notes: “Can’t act. Slightly bald. Can dance a little.”</p>
+          <p class="summary">A legendary (and possibly apocryphal) studio note dismissed him. Astaire became one of the most elegant and influential dancers in film history.</p>
+          <div class="card-footer"><span class="year">1930s</span></div>
+        </article>
+
+        <article class="card" data-category="Business" data-name="Milton Hershey">
+          <div class="card-header">
+            <span class="cat">Business</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Milton Hershey</h2>
+          <p class="fail-line">Two candy businesses failed before success</p>
+          <p class="summary">Early confectionery ventures collapsed, leaving him nearly penniless. He later built the Lancaster Caramel Company and then the chocolate empire that bears his name.</p>
+          <div class="card-footer"><span class="year">1880s–1900s</span></div>
+        </article>
+
+        <article class="card" data-category="Technology" data-name="Jack Ma">
+          <div class="card-header">
+            <span class="cat">Technology</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>Jack Ma</h2>
+          <p class="fail-line">Rejected from dozens of jobs; failed early ventures</p>
+          <p class="summary">Failed university entrance exams, was turned down by KFC and many employers. Later founded Alibaba, which became one of the world’s largest e-commerce companies.</p>
+          <div class="card-footer"><span class="year">1980s–1999</span></div>
+        </article>
+
+        <article class="card" data-category="Literature" data-name="John Grisham">
+          <div class="card-header">
+            <span class="cat">Literature</span>
+            <span class="check">Fact-checked by Grok</span>
+          </div>
+          <h2>John Grisham</h2>
+          <p class="fail-line">First novel rejected by many publishers</p>
+          <p class="summary">A Time to Kill was turned down repeatedly. Grisham kept writing; subsequent legal thrillers made him one of the best-selling authors of his generation.</p>
+          <div class="card-footer"><span class="year">1980s</span></div>
+        </article>
+
+      </div>
+
+      <p class="no-results" id="no-results" hidden>No entries match your search or filter.</p>
+
+      <section class="note">
+        <h3>About this branch</h3>
+        <p>This is an unofficial specialized branch exploring the documented failures that preceded major achievements. It follows the Grokipedia ethos: surface the full record rather than the sanitized legend. Entries are concise, sourced from widely reported biographical facts, and presented without hype.</p>
+        <p class="disclaimer">Not an official xAI or Grokipedia product. Inspired by the idea of an AI-assisted encyclopedia that values completeness over narrative convenience.</p>
+      </section>
     </div>
-
-    <div class="grid" id="grid">
-      <!-- Cards generated / listed below -->
-
-      <article class="card" data-category="Science" data-name="Thomas Edison">
-        <div class="card-header">
-          <span class="cat">Science</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Thomas Edison</h2>
-        <p class="fail-line">1,000+ failed attempts at a practical light bulb</p>
-        <p class="summary">Edison treated every unsuccessful experiment as data. When asked about the failures he replied that he had simply found thousands of ways that would not work. The eventual carbon-filament bulb changed daily life.</p>
-        <div class="card-footer">
-          <span class="year">c. 1879</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Entertainment" data-name="Walt Disney">
-        <div class="card-header">
-          <span class="cat">Entertainment</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Walt Disney</h2>
-        <p class="fail-line">Fired for “lacking imagination”; early studio bankruptcies</p>
-        <p class="summary">A newspaper editor told young Walt he lacked imagination. Laugh-O-Gram went bankrupt. He later built an entertainment empire defined by imagination.</p>
-        <div class="card-footer">
-          <span class="year">1920s–1930s</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Media" data-name="Oprah Winfrey">
-        <div class="card-header">
-          <span class="cat">Media</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Oprah Winfrey</h2>
-        <p class="fail-line">Fired from her first television job</p>
-        <p class="summary">Told she was “unfit for television” in Baltimore. She went on to become one of the most influential media figures of the modern era.</p>
-        <div class="card-footer">
-          <span class="year">Early 1980s</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Technology" data-name="Steve Jobs">
-        <div class="card-header">
-          <span class="cat">Technology</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Steve Jobs</h2>
-        <p class="fail-line">Ousted from Apple, the company he co-founded</p>
-        <p class="summary">In 1985 Jobs was forced out. He returned in 1997 and led the company’s greatest resurgence — iMac, iPod, iPhone — reshaping multiple industries.</p>
-        <div class="card-footer">
-          <span class="year">1985–1997</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Literature" data-name="J.K. Rowling">
-        <div class="card-header">
-          <span class="cat">Literature</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>J.K. Rowling</h2>
-        <p class="fail-line">Rejected by 12 publishers; living on benefits</p>
-        <p class="summary">Harry Potter and the Philosopher’s Stone was turned down repeatedly. A single mother’s manuscript eventually sold more than 500 million copies.</p>
-        <div class="card-footer">
-          <span class="year">1995–1997</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Sports" data-name="Michael Jordan">
-        <div class="card-header">
-          <span class="cat">Sports</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Michael Jordan</h2>
-        <p class="fail-line">Cut from his high-school varsity basketball team</p>
-        <p class="summary">As a sophomore he was cut. He used the rejection as fuel and became widely regarded as the greatest basketball player of all time.</p>
-        <div class="card-footer">
-          <span class="year">1978</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Business" data-name="Colonel Sanders">
-        <div class="card-header">
-          <span class="cat">Business</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Colonel Harland Sanders</h2>
-        <p class="fail-line">Recipe rejected more than 1,000 times</p>
-        <p class="summary">Sanders pitched his fried-chicken recipe to restaurant after restaurant well into his 60s. The 1,009th (or so) “no” was followed by a yes that created KFC.</p>
-        <div class="card-footer">
-          <span class="year">1950s–1960s</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Science" data-name="Albert Einstein">
-        <div class="card-header">
-          <span class="cat">Science</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Albert Einstein</h2>
-        <p class="fail-line">Labeled slow; struggled early academically</p>
-        <p class="summary">Did not speak fluently until around age nine and was considered a weak student by some teachers. Later transformed physics with special and general relativity.</p>
-        <div class="card-footer">
-          <span class="year">Late 1800s</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Politics" data-name="Abraham Lincoln">
-        <div class="card-header">
-          <span class="cat">Politics</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Abraham Lincoln</h2>
-        <p class="fail-line">Multiple election losses and business failures</p>
-        <p class="summary">Failed in business, lost races for legislature, Congress and Senate, and endured profound personal losses before becoming one of America’s most consequential presidents.</p>
-        <div class="card-footer">
-          <span class="year">1830s–1860</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Fashion" data-name="Vera Wang">
-        <div class="card-header">
-          <span class="cat">Fashion</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Vera Wang</h2>
-        <p class="fail-line">Failed to make the U.S. Olympic figure-skating team</p>
-        <p class="summary">Her Olympic dream ended early. She pivoted into fashion editorial work and later became one of the world’s most celebrated bridal designers.</p>
-        <div class="card-footer">
-          <span class="year">1960s–1980s</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Literature" data-name="Stephen King">
-        <div class="card-header">
-          <span class="cat">Literature</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Stephen King</h2>
-        <p class="fail-line">Carrie rejected ~30 times; manuscript thrown away</p>
-        <p class="summary">King discarded the draft of Carrie. His wife retrieved it. The novel launched one of the most commercially successful writing careers in modern history.</p>
-        <div class="card-footer">
-          <span class="year">1973–1974</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Technology" data-name="Elon Musk">
-        <div class="card-header">
-          <span class="cat">Technology</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Elon Musk</h2>
-        <p class="fail-line">Near-bankruptcy of both Tesla and SpaceX in 2008</p>
-        <p class="summary">In late 2008 both companies were days from collapse. Musk committed remaining personal capital. The companies later redefined electric vehicles and private spaceflight.</p>
-        <div class="card-footer">
-          <span class="year">2008</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Business" data-name="Henry Ford">
-        <div class="card-header">
-          <span class="cat">Business</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Henry Ford</h2>
-        <p class="fail-line">Two failed automobile companies before Ford Motor</p>
-        <p class="summary">Early ventures collapsed. The third attempt introduced the Model T and the moving assembly line, transforming manufacturing and personal mobility.</p>
-        <div class="card-footer">
-          <span class="year">1899–1908</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Business" data-name="James Dyson">
-        <div class="card-header">
-          <span class="cat">Business</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>James Dyson</h2>
-        <p class="fail-line">5,126 failed prototypes over 15 years</p>
-        <p class="summary">Dyson spent years and his savings iterating bagless vacuum designs. Prototype 5,127 worked. Manufacturers refused; he built the company himself.</p>
-        <div class="card-footer">
-          <span class="year">1978–1993</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Entertainment" data-name="Steven Spielberg">
-        <div class="card-header">
-          <span class="cat">Entertainment</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Steven Spielberg</h2>
-        <p class="fail-line">Rejected multiple times by USC film school</p>
-        <p class="summary">Denied entry to the University of Southern California’s film program. He later directed Jaws, the first modern summer blockbuster, and became one of cinema’s defining figures.</p>
-        <div class="card-footer">
-          <span class="year">1960s–1970s</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Business" data-name="Soichiro Honda">
-        <div class="card-header">
-          <span class="cat">Business</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Soichiro Honda</h2>
-        <p class="fail-line">Rejected by Toyota; factory destroyed in WWII</p>
-        <p class="summary">Early piston-ring work was rejected. A factory was bombed and later leveled by an earthquake. Honda rebuilt and created one of the world’s great automotive companies.</p>
-        <div class="card-footer">
-          <span class="year">1930s–1940s</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Literature" data-name="Dr. Seuss">
-        <div class="card-header">
-          <span class="cat">Literature</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Dr. Seuss (Theodor Geisel)</h2>
-        <p class="fail-line">First book rejected by 27 publishers</p>
-        <p class="summary">And to Think That I Saw It on Mulberry Street was turned down 27 times. A chance encounter on the street led to publication and a career that shaped children’s literature.</p>
-        <div class="card-footer">
-          <span class="year">1937</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Technology" data-name="Bill Gates">
-        <div class="card-header">
-          <span class="cat">Technology</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Bill Gates</h2>
-        <p class="fail-line">Early Traf-O-Data venture failed</p>
-        <p class="summary">Gates and Paul Allen’s first company, built around traffic-data processing, did not succeed commercially. Lessons from the failure informed the later founding of Microsoft.</p>
-        <div class="card-footer">
-          <span class="year">1972–1975</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Business" data-name="Arianna Huffington">
-        <div class="card-header">
-          <span class="cat">Business</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Arianna Huffington</h2>
-        <p class="fail-line">Second book rejected by 36 publishers</p>
-        <p class="summary">After early writing success she faced a long string of rejections. She later co-founded The Huffington Post, which was sold for hundreds of millions.</p>
-        <div class="card-footer">
-          <span class="year">1980s–2005</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Sports" data-name="Babe Ruth">
-        <div class="card-header">
-          <span class="cat">Sports</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Babe Ruth</h2>
-        <p class="fail-line">Record for most strikeouts in an era of home-run glory</p>
-        <p class="summary">Ruth held the career strikeout record for decades while also rewriting the home-run record books. Failure at the plate was inseparable from his dominance.</p>
-        <div class="card-footer">
-          <span class="year">1910s–1930s</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Science" data-name="Robert Goddard">
-        <div class="card-header">
-          <span class="cat">Science</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Robert Goddard</h2>
-        <p class="fail-line">Ridiculed by the press for rocket research</p>
-        <p class="summary">The New York Times mocked his ideas about spaceflight. Goddard continued private experiments and is now recognized as a father of modern rocketry.</p>
-        <div class="card-footer">
-          <span class="year">1920s</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Entertainment" data-name="Fred Astaire">
-        <div class="card-header">
-          <span class="cat">Entertainment</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Fred Astaire</h2>
-        <p class="fail-line">Early screen-test notes: “Can’t act. Slightly bald. Can dance a little.”</p>
-        <p class="summary">A legendary (and possibly apocryphal) studio note dismissed him. Astaire became one of the most elegant and influential dancers in film history.</p>
-        <div class="card-footer">
-          <span class="year">1930s</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Business" data-name="Milton Hershey">
-        <div class="card-header">
-          <span class="cat">Business</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Milton Hershey</h2>
-        <p class="fail-line">Two candy businesses failed before success</p>
-        <p class="summary">Early confectionery ventures collapsed, leaving him nearly penniless. He later built the Lancaster Caramel Company and then the chocolate empire that bears his name.</p>
-        <div class="card-footer">
-          <span class="year">1880s–1900s</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Technology" data-name="Jack Ma">
-        <div class="card-header">
-          <span class="cat">Technology</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>Jack Ma</h2>
-        <p class="fail-line">Rejected from dozens of jobs; failed early ventures</p>
-        <p class="summary">Failed university entrance exams, was turned down by KFC and many employers. Later founded Alibaba, which became one of the world’s largest e-commerce companies.</p>
-        <div class="card-footer">
-          <span class="year">1980s–1999</span>
-        </div>
-      </article>
-
-      <article class="card" data-category="Literature" data-name="John Grisham">
-        <div class="card-header">
-          <span class="cat">Literature</span>
-          <span class="check">Fact-checked by Grok</span>
-        </div>
-        <h2>John Grisham</h2>
-        <p class="fail-line">First novel rejected by many publishers</p>
-        <p class="summary">A Time to Kill was turned down repeatedly. Grisham kept writing; subsequent legal thrillers made him one of the best-selling authors of his generation.</p>
-        <div class="card-footer">
-          <span class="year">1980s</span>
-        </div>
-      </article>
-
-    </div>
-
-    <section class="note">
-      <h3>About this branch</h3>
-      <p>This is an unofficial specialized branch exploring the documented failures that preceded major achievements. It follows the Grokipedia ethos: surface the full record rather than the sanitized legend. Entries are concise, sourced from widely reported biographical facts, and presented without hype.</p>
-      <p class="disclaimer">Not an official xAI or Grokipedia product. Inspired by the idea of an AI-assisted encyclopedia that values completeness over narrative convenience.</p>
-    </section>
   </main>
 
   <footer>

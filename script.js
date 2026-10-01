@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const filters = document.querySelectorAll('.filter');
   const cards = document.querySelectorAll('.card');
   const entryCount = document.getElementById('entry-count');
+  const noResults = document.getElementById('no-results');
 
   let activeFilter = 'all';
 
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (entryCount) entryCount.textContent = visible;
+    if (noResults) noResults.hidden = visible > 0;
   }
 
   searchInput.addEventListener('input', updateVisible);
@@ -40,6 +42,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Initial count
   updateVisible();
 });
