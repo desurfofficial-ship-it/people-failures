@@ -29,7 +29,6 @@ body {
   line-height: 1.45;
 }
 
-/* Header */
 .app-header {
   position: sticky; top: 0; z-index: 30;
   display: flex; align-items: center; gap: 0.75rem;
@@ -63,9 +62,7 @@ body {
 .view { display: none; }
 .view.active { display: block; }
 
-/* ── HOME ── */
 .home-scroll { padding-bottom: 1.5rem; }
-
 .home-greet {
   display: flex; justify-content: space-between; align-items: flex-end;
   padding: 1.1rem 1rem 0.85rem;
@@ -97,7 +94,6 @@ body {
 }
 .text-btn:hover { text-decoration: underline; }
 
-/* Daily hero card */
 .daily-card {
   display: block; width: calc(100% - 2rem); margin: 0 1rem;
   text-align: left; border: 1px solid var(--border);
@@ -115,9 +111,6 @@ body {
 .daily-card .dc-pic {
   width: 56px; height: 56px; border-radius: 12px; overflow: hidden;
   flex-shrink: 0; position: relative;
-}
-.daily-card .dc-pic .avatar,
-.daily-card .dc-pic {
   display: flex; align-items: center; justify-content: center;
   color: #fff; font-weight: 700; font-size: 1rem;
 }
@@ -140,7 +133,6 @@ body {
   font-size: 0.8rem; font-weight: 600; color: var(--accent);
 }
 
-/* Quick actions */
 .quick-row {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;
   padding: 0 1rem;
@@ -156,7 +148,6 @@ body {
 .q-icon { font-size: 1.05rem; color: var(--accent); font-weight: 600; }
 .q-label { font-size: 0.68rem; color: var(--muted); font-weight: 500; }
 
-/* Category pills scroll */
 .cat-scroll {
   display: flex; gap: 0.5rem; overflow-x: auto; padding: 0 1rem 0.25rem;
   scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
@@ -179,7 +170,6 @@ body {
   color: var(--muted); font-family: var(--mono);
 }
 
-/* Horizontal card strips */
 .h-scroll {
   display: flex; gap: 0.6rem; overflow-x: auto; padding: 0 1rem 0.35rem;
   scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
@@ -210,7 +200,6 @@ body {
   font-style: italic; line-height: 1.35;
 }
 
-/* Worth opening list */
 .list-stack { padding: 0 1rem; display: flex; flex-direction: column; gap: 0.45rem; }
 .list-row {
   display: flex; gap: 0.75rem; align-items: center;
@@ -234,7 +223,6 @@ body {
 .list-row .lr-fail { font-size: 0.72rem; color: var(--orange); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .list-row .lr-go { color: var(--muted); font-size: 1.1rem; flex-shrink: 0; }
 
-/* Browse */
 .browse-toolbar {
   padding: 0.6rem 0.75rem 0.5rem;
   background: rgba(26, 26, 32, 0.95);
@@ -275,6 +263,11 @@ body {
 .column-dot.sports { background: #fb923c; }
 .column-dot.entertainment { background: #facc15; }
 .column-dot.other { background: #94a3b8; }
+.column-dot.companies { background: #f43f5e; }
+.column-dot.products { background: #06b6d4; }
+.column-dot.games { background: #a855f7; }
+.column-dot.films { background: #eab308; }
+.column-dot.projects { background: #84cc16; }
 .column-header h2 { font-size: 0.8rem; font-weight: 600; flex: 1; }
 .column-header .count {
   font-size: 0.65rem; font-family: var(--mono); color: var(--muted);
@@ -309,7 +302,6 @@ body {
 
 .empty-msg { color: var(--muted); padding: 2rem 1rem; font-size: 0.9rem; text-align: center; }
 
-/* Library & Profile */
 .page-top { padding: 1.1rem 1rem 0.5rem; }
 .page-top h1 { font-size: 1.3rem; font-weight: 700; }
 .page-top p { color: var(--muted); font-size: 0.8rem; margin-top: 0.15rem; }
@@ -370,7 +362,6 @@ body {
 .btn.ghost.danger { color: var(--danger); }
 .profile-note { margin: 1.25rem 1rem; font-size: 0.72rem; color: var(--muted); line-height: 1.5; }
 
-/* Bottom nav */
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
   height: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
@@ -388,7 +379,6 @@ body {
 .nav-btn.active { color: var(--accent); }
 .nav-btn:hover { color: var(--text); }
 
-/* Modal */
 .modal[hidden] { display: none !important; }
 .modal {
   position: fixed; inset: 0; z-index: 100;
