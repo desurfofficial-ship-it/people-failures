@@ -1,41 +1,38 @@
-# Famous Failures
+# Grokipedia / Failures
 
-A simple, beautiful static website showcasing famous failures of successful people — because every success story has chapters of failure.
+A specialized branch of the Grokipedia idea — an encyclopedia of the failures, rejections, and near-collapses that preceded extraordinary success.
 
-## Live site
+**Live (after enabling GitHub Pages):**  
+https://desurfofficial-ship-it.github.io/people-failures/
 
-Once GitHub Pages is enabled, the site will be available at:
+## What this is
 
-**https://desurfofficial-ship-it.github.io/people-failures/**
+- Clean, dark, encyclopedia-style interface
+- 24 documented entries across Technology, Business, Literature, Sports, Science, Entertainment, Politics, Fashion
+- Search + category filters
+- “Fact-checked by Grok” labeling in the spirit of Grokipedia
+- Explicitly marked as an unofficial community branch
 
-## Stories included
+## Design notes
 
-- Thomas Edison
-- Walt Disney
-- Oprah Winfrey
-- Steve Jobs
-- J.K. Rowling
-- Michael Jordan
-- Colonel Sanders
-- Albert Einstein
-- Abraham Lincoln
-- Vera Wang
-- Stephen King
-- Elon Musk
+Styled to feel like a specialized section of an AI-assisted encyclopedia (Grokipedia-inspired):
+- Top navigation with logo + branch name
+- Breadcrumb
+- Sticky search and filters
+- Card layout that reads like concise encyclopedia entries
+- Accent color reminiscent of modern AI/product UIs
 
 ## Enable GitHub Pages
 
-1. Go to the repository **Settings → Pages**
-2. Under **Source**, select **Deploy from a branch**
-3. Choose branch **main** and folder **/ (root)**
-4. Save — the site will be live in a minute or two
+1. Repo **Settings → Pages**
+2. Source: **Deploy from a branch**
+3. Branch: `main` / folder: `/ (root)`
+4. Save
 
-## Tech
+## Disclaimer
 
-- Pure HTML, CSS & a tiny bit of vanilla JS
-- No build step, no frameworks
-- Dark theme, responsive, accessible
+This is **not** an official xAI, Grok, or Grokipedia product. It is a fan / community project inspired by the concept of a truth-oriented encyclopedia that includes the full record — including the failures that history often smooths over.
 
 ---
 
-*Failure isn't the opposite of success. It's part of the path.*
+*Failure is data. Success is what you do with it.*

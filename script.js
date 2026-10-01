@@ -1,24 +1,45 @@
-// Subtle fade-in on scroll for cards
 document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('search');
+  const filters = document.querySelectorAll('.filter');
   const cards = document.querySelectorAll('.card');
+  const entryCount = document.getElementById('entry-count');
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-  );
+  let activeFilter = 'all';
 
-  cards.forEach((card, i) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(24px)';
-    card.style.transition = `opacity 0.5s ease ${i * 0.05}s, transform 0.5s ease ${i * 0.05}s`;
-    observer.observe(card);
+  function updateVisible() {
+    const query = (searchInput.value || '').toLowerCase().trim();
+    let visible = 0;
+
+    cards.forEach(card => {
+      const name = (card.dataset.name || '').toLowerCase();
+      const category = card.dataset.category || '';
+      const text = card.textContent.toLowerCase();
+
+      const matchesFilter = activeFilter === 'all' || category === activeFilter;
+      const matchesSearch = !query || name.includes(query) || text.includes(query);
+
+      if (matchesFilter && matchesSearch) {
+        card.classList.remove('hidden');
+        visible++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    if (entryCount) entryCount.textContent = visible;
+  }
+
+  searchInput.addEventListener('input', updateVisible);
+
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filters.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      updateVisible();
+    });
   });
+
+  // Initial count
+  updateVisible();
 });
