@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Failures — Grokipedia</title>
-  <meta name="description" content="Famous failures playbooks. 500+ stories.">
+  <meta name="description" content="Famous failures playbooks. Browse, save, learn.">
   <meta name="theme-color" content="#0f0f12">
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +24,7 @@
       <input type="search" id="search" placeholder="Search…" aria-label="Search" autocomplete="off">
     </div>
   </header>
+
   <main id="view-home" class="view active">
     <div class="home-scroll">
       <section class="home-greet">
@@ -63,10 +64,12 @@
       </section>
     </div>
   </main>
+
   <main id="view-browse" class="view">
     <div class="browse-toolbar"><div class="chip-row" id="chip-row"></div></div>
     <div class="board" id="board"></div>
   </main>
+
   <main id="view-library" class="view">
     <div class="page-top"><h1>Library</h1><p>Saved on this device only</p></div>
     <div class="lib-tabs">
@@ -75,6 +78,7 @@
     </div>
     <div id="library-list" class="library-list"></div>
   </main>
+
   <main id="view-profile" class="view">
     <div class="page-top"><h1>Profile</h1><p>Local only</p></div>
     <div class="profile-card">
@@ -90,12 +94,14 @@
       <button type="button" class="btn ghost danger" id="reset-all">Reset all local data</button>
     </div>
   </main>
+
   <nav class="bottom-nav" aria-label="Main">
     <button type="button" class="nav-btn active" data-nav="home"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5z"/></svg><span>Home</span></button>
     <button type="button" class="nav-btn" data-nav="browse"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Browse</span></button>
     <button type="button" class="nav-btn" data-nav="library"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>Library</span></button>
     <button type="button" class="nav-btn" data-nav="profile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><span>Profile</span></button>
   </nav>
+
   <div class="modal" id="modal" hidden>
     <div class="modal-backdrop" id="modal-backdrop"></div>
     <div class="modal-panel" role="dialog" aria-modal="true">
@@ -108,10 +114,10 @@
       <div class="modal-body" id="modal-body"></div>
     </div>
   </div>
+
   <script src="data.js"></script>
   <script src="data-extra.js"></script>
-  <script src="data-mega-1.js"></script>
-  <script src="data-mega-2.js"></script>
+  <script src="p0.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
