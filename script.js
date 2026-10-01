@@ -4,10 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('modal');
   const modalBackdrop = document.getElementById('modal-backdrop');
   const modalClose = document.getElementById('modal-close');
+  const meta = document.querySelector('.header-right .meta');
   const data = Array.isArray(window.FAILURES) ? window.FAILURES : [];
 
+  if (meta) meta.textContent = data.length + ' cards · click for playbook';
+
   if (!data.length) {
-    board.innerHTML = '<p style="color:#9a9aa5;padding:2rem;">No data loaded. Check that data.js is available.</p>';
+    board.innerHTML = '<p class="empty-msg">No data loaded. Check that data.js is available.</p>';
     return;
   }
 
@@ -43,11 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const items = data.filter(function (d) {
         if (d.category !== cat.key) return false;
         if (!q) return true;
-        var blob = [d.name, d.fail, d.story, d.category, d.takeaway].join(' ').toLowerCase();
+        var blob = [d.name, d.fail, d.story, d.category, d.takeaway, d.book].join(' ').toLowerCase();
         return blob.indexOf(q) !== -1;
       });
 
-      if (!items.length && q) return; // hide empty columns when filtering
+      if (!items.length && q) return;
 
       var col = document.createElement('section');
       col.className = 'column';
@@ -73,13 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
             '<span class="avatar">' + escapeHtml(d.initials || '?') + '</span>' +
             (d.img
               ? '<img src="' + imgUrl(d.img) + '" alt="" loading="lazy" ' +
-                'onload="this.classList.add(\'loaded\')" ' +
-                'onerror="this.style.display=\'none\'">' 
+                'onload="this.classList.add(\x27loaded\x27)" ' +
+                'onerror="this.style.display=\x27none\x27">'
               : '') +
           '</div>';
 
         var excerpt = (d.story || '').slice(0, 110);
-        if ((d.story || '').length > 110) excerpt += '…';
+        if ((d.story || '').length > 110) excerpt += '\u2026';
 
         card.innerHTML =
           '<div class="card-top">' + picHtml +
@@ -110,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function listHtml(arr) {
-    if (!arr || !arr.length) return '<p>—</p>';
+    if (!arr || !arr.length) return '<p>\u2014</p>';
     return '<ul>' + arr.map(function (a) {
       return '<li>' + escapeHtml(a) + '</li>';
     }).join('') + '</ul>';
@@ -120,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('modal-title').textContent = d.name || '';
     document.getElementById('modal-fail').textContent = d.fail || '';
     document.getElementById('modal-cat').textContent =
-      (d.category || '') + (d.year ? ' · ' + d.year : '');
+      (d.category || '') + (d.year ? ' \u00b7 ' + d.year : '');
 
     var av = document.getElementById('modal-avatar');
     av.innerHTML = '';
@@ -135,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
         av.textContent = '';
         av.appendChild(img);
       };
-      img.onerror = function () { /* keep initials */ };
     }
 
     document.getElementById('modal-body').innerHTML =
@@ -148,7 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
       '</section>' +
       '<section><h3>Resources needed</h3>' + listHtml(d.resources) + '</section>' +
       '<section class="takeaway"><h3>Takeaway</h3><p>' + escapeHtml(d.takeaway) + '</p></section>' +
-      '<section><h3>Book to read</h3><p class="book">' + escapeHtml(d.book) + '</p></section>';
+      '<section><h3>Book to read</h3><p class="book">' + escapeHtml(d.book) + '</p></section>' +
+      (d.bookGain
+        ? '<section><h3>What you get from the book</h3><p>' + escapeHtml(d.bookGain) + '</p></section>'
+        : '');
 
     modal.hidden = false;
     document.body.style.overflow = 'hidden';
