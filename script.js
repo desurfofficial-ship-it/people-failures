@@ -83,6 +83,10 @@
 
   function imgUrl(filename, w) {
     if (!filename) return '';
+    // If it's already a full URL (e.g., from Wikipedia/Wikimedia upload.wikimedia.org),
+    // use as-is — the API returns ready-to-use thumbnail URLs.
+    if (/^https?:\/\//.test(filename)) return filename;
+    // Otherwise treat as a Commons filename and build the Special:FilePath URL.
     return 'https://commons.wikimedia.org/wiki/Special:FilePath/' +
       encodeURIComponent(filename) + '?width=' + (w || 88);
   }
