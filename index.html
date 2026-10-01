@@ -2,77 +2,125 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Famous Failures — Grokipedia Board</title>
-  <meta name="description" content="Kanban of famous failures. Browse, save to library, and open full playbooks.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Failures — Grokipedia</title>
+  <meta name="description" content="Famous failures playbooks. Browse, save, learn.">
+  <meta name="theme-color" content="#0f0f12">
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="app-header">
-    <div class="logo">
+  <header class="app-header" id="app-header">
+    <div class="logo" data-nav="home" role="button" tabindex="0">
       <span class="logo-g">G</span>
       <div class="logo-text">
-        <span class="logo-main">Grokipedia</span>
-        <span class="logo-sub">Failures</span>
+        <span class="logo-main">Failures</span>
+        <span class="logo-sub">Grokipedia</span>
       </div>
     </div>
     <div class="header-search-wrap">
-      <input type="search" id="search" placeholder="Search people, failures, books…" aria-label="Search" autocomplete="off">
+      <input type="search" id="search" placeholder="Search…" aria-label="Search" autocomplete="off">
     </div>
   </header>
 
   <!-- HOME -->
   <main id="view-home" class="view active">
-    <section class="hero">
-      <h1>Failures that came before the wins</h1>
-      <p>Stories, playbooks, and books — from people who got knocked down and still shipped.</p>
-      <div class="hero-actions">
-        <button type="button" class="btn primary" data-nav="browse">Browse board</button>
-        <button type="button" class="btn ghost" data-nav="library">My library</button>
-      </div>
-    </section>
-    <section class="home-block">
-      <div class="block-head">
-        <h2>Featured</h2>
-        <button type="button" class="linkish" data-nav="browse">See all</button>
-      </div>
-      <div class="feature-row" id="featured-row"></div>
-    </section>
-    <section class="home-block">
-      <div class="block-head">
-        <h2>Browse by category</h2>
-      </div>
-      <div class="cat-grid" id="cat-grid"></div>
-    </section>
-    <section class="home-block">
-      <div class="block-head">
-        <h2>Random playbook</h2>
-        <button type="button" class="linkish" id="shuffle-btn">Shuffle</button>
-      </div>
-      <div id="random-card" class="random-slot"></div>
-    </section>
+    <div class="home-scroll">
+      <!-- Greeting strip -->
+      <section class="home-greet">
+        <div>
+          <p class="greet-line" id="greet-line">Welcome back</p>
+          <h1 id="home-title">Today’s failure fuel</h1>
+        </div>
+        <div class="greet-stats">
+          <span id="stat-total">0</span> stories
+        </div>
+      </section>
+
+      <!-- Daily pick — big card -->
+      <section class="home-section">
+        <div class="sec-label">
+          <span>Daily pick</span>
+          <button type="button" class="text-btn" id="reshuffle">New pick</button>
+        </div>
+        <button type="button" class="daily-card" id="daily-card"></button>
+      </section>
+
+      <!-- Quick actions -->
+      <section class="home-section">
+        <div class="quick-row">
+          <button type="button" class="quick" data-nav="browse">
+            <span class="q-icon">▦</span>
+            <span class="q-label">Browse all</span>
+          </button>
+          <button type="button" class="quick" data-nav="library">
+            <span class="q-icon">Bookmark</span>
+            <span class="q-label">Library</span>
+          </button>
+          <button type="button" class="quick" id="quick-random">
+            <span class="q-icon">↻</span>
+            <span class="q-label">Random</span>
+          </button>
+          <button type="button" class="quick" data-nav="profile">
+            <span class="q-icon">◎</span>
+            <span class="q-label">Profile</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Categories -->
+      <section class="home-section">
+        <div class="sec-label"><span>Categories</span></div>
+        <div class="cat-scroll" id="cat-scroll"></div>
+      </section>
+
+      <!-- Continue / Saved strip -->
+      <section class="home-section" id="saved-section" hidden>
+        <div class="sec-label">
+          <span>Saved</span>
+          <button type="button" class="text-btn" data-nav="library">See all</button>
+        </div>
+        <div class="h-scroll" id="saved-row"></div>
+      </section>
+
+      <!-- Trending-style list -->
+      <section class="home-section">
+        <div class="sec-label">
+          <span>Worth opening</span>
+          <button type="button" class="text-btn" data-nav="browse">Board</button>
+        </div>
+        <div class="list-stack" id="worth-list"></div>
+      </section>
+
+      <!-- Books strip -->
+      <section class="home-section last">
+        <div class="sec-label">
+          <span>Books from the board</span>
+          <button type="button" class="text-btn" data-lib-jump>Library</button>
+        </div>
+        <div class="h-scroll" id="books-row"></div>
+      </section>
+    </div>
   </main>
 
   <!-- BROWSE -->
   <main id="view-browse" class="view">
     <div class="browse-toolbar">
       <div class="chip-row" id="chip-row"></div>
-      <p class="browse-hint">Click a card for the full playbook · pin to Library</p>
     </div>
     <div class="board" id="board"></div>
   </main>
 
   <!-- LIBRARY -->
   <main id="view-library" class="view">
-    <section class="page-intro">
+    <div class="page-top">
       <h1>Library</h1>
-      <p>Saved playbooks and books. Stored only on this device.</p>
-    </section>
+      <p>Saved on this device only</p>
+    </div>
     <div class="lib-tabs">
-      <button type="button" class="lib-tab active" data-lib="saved">Saved cards</button>
+      <button type="button" class="lib-tab active" data-lib="saved">Saved</button>
       <button type="button" class="lib-tab" data-lib="books">Books</button>
     </div>
     <div id="library-list" class="library-list"></div>
@@ -80,13 +128,13 @@
 
   <!-- PROFILE -->
   <main id="view-profile" class="view">
-    <section class="page-intro">
+    <div class="page-top">
       <h1>Profile</h1>
-      <p>Local prefs for this browser. Nothing is uploaded.</p>
-    </section>
+      <p>Local only · nothing uploaded</p>
+    </div>
     <div class="profile-card">
       <div class="profile-avatar" id="profile-avatar">G</div>
-      <div>
+      <div class="profile-fields">
         <label class="field-label" for="display-name">Display name</label>
         <input type="text" id="display-name" placeholder="Your name" maxlength="40">
       </div>
@@ -96,26 +144,28 @@
       <button type="button" class="btn ghost" id="clear-library">Clear saved library</button>
       <button type="button" class="btn ghost danger" id="reset-all">Reset all local data</button>
     </div>
-    <p class="profile-note">Grokipedia / Failures is an unofficial community board. Portraits via Wikimedia when available.</p>
+    <p class="profile-note">Unofficial Grokipedia community board. Portraits via Wikimedia when available.</p>
   </main>
 
-  <!-- Bottom nav -->
   <nav class="bottom-nav" aria-label="Main">
-    <button type="button" class="nav-btn active" data-nav="home" aria-label="Home">
-      <span class="nav-icon">⌂</span><span>Home</span>
+    <button type="button" class="nav-btn active" data-nav="home">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5z"/></svg>
+      <span>Home</span>
     </button>
-    <button type="button" class="nav-btn" data-nav="browse" aria-label="Browse">
-      <span class="nav-icon">▦</span><span>Browse</span>
+    <button type="button" class="nav-btn" data-nav="browse">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span>Browse</span>
     </button>
-    <button type="button" class="nav-btn" data-nav="library" aria-label="Library">
-      <span class="nav-icon">☰</span><span>Library</span>
+    <button type="button" class="nav-btn" data-nav="library">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span>Library</span>
     </button>
-    <button type="button" class="nav-btn" data-nav="profile" aria-label="Profile">
-      <span class="nav-icon">◎</span><span>Profile</span>
+    <button type="button" class="nav-btn" data-nav="profile">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <span>Profile</span>
     </button>
   </nav>
 
-  <!-- Modal -->
   <div class="modal" id="modal" hidden>
     <div class="modal-backdrop" id="modal-backdrop"></div>
     <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
