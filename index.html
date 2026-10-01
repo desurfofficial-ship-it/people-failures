@@ -4,42 +4,118 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Famous Failures — Grokipedia Board</title>
-  <meta name="description" content="Kanban board of famous failures. Click any card for the full story, how to apply it, and a book.">
+  <meta name="description" content="Kanban of famous failures. Browse, save to library, and open full playbooks.">
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="board-header">
-    <div class="header-left">
-      <div class="logo">
-        <span class="logo-g">G</span>
-        <div class="logo-text">
-          <span class="logo-main">Grokipedia</span>
-          <span class="logo-sub">Failures Board</span>
-        </div>
+  <header class="app-header">
+    <div class="logo">
+      <span class="logo-g">G</span>
+      <div class="logo-text">
+        <span class="logo-main">Grokipedia</span>
+        <span class="logo-sub">Failures</span>
       </div>
     </div>
-    <div class="header-center">
-      <input type="search" id="search" placeholder="Filter cards..." aria-label="Filter cards" autocomplete="off">
-    </div>
-    <div class="header-right">
-      <span class="meta">Click a card for the full playbook</span>
+    <div class="header-search-wrap">
+      <input type="search" id="search" placeholder="Search people, failures, books…" aria-label="Search" autocomplete="off">
     </div>
   </header>
 
-  <div class="board-intro">
-    <p>Setbacks before the wins. Click any card → story, how to apply it, when it fits, resources, takeaway, and a book.</p>
-  </div>
+  <!-- HOME -->
+  <main id="view-home" class="view active">
+    <section class="hero">
+      <h1>Failures that came before the wins</h1>
+      <p>Stories, playbooks, and books — from people who got knocked down and still shipped.</p>
+      <div class="hero-actions">
+        <button type="button" class="btn primary" data-nav="browse">Browse board</button>
+        <button type="button" class="btn ghost" data-nav="library">My library</button>
+      </div>
+    </section>
+    <section class="home-block">
+      <div class="block-head">
+        <h2>Featured</h2>
+        <button type="button" class="linkish" data-nav="browse">See all</button>
+      </div>
+      <div class="feature-row" id="featured-row"></div>
+    </section>
+    <section class="home-block">
+      <div class="block-head">
+        <h2>Browse by category</h2>
+      </div>
+      <div class="cat-grid" id="cat-grid"></div>
+    </section>
+    <section class="home-block">
+      <div class="block-head">
+        <h2>Random playbook</h2>
+        <button type="button" class="linkish" id="shuffle-btn">Shuffle</button>
+      </div>
+      <div id="random-card" class="random-slot"></div>
+    </section>
+  </main>
 
-  <div class="board" id="board"></div>
+  <!-- BROWSE -->
+  <main id="view-browse" class="view">
+    <div class="browse-toolbar">
+      <div class="chip-row" id="chip-row"></div>
+      <p class="browse-hint">Click a card for the full playbook · pin to Library</p>
+    </div>
+    <div class="board" id="board"></div>
+  </main>
 
-  <footer class="board-footer">
-    <p>Grokipedia / Failures — unofficial community board</p>
-    <p><a href="https://github.com/desurfofficial-ship-it/people-failures">GitHub</a></p>
-  </footer>
+  <!-- LIBRARY -->
+  <main id="view-library" class="view">
+    <section class="page-intro">
+      <h1>Library</h1>
+      <p>Saved playbooks and books. Stored only on this device.</p>
+    </section>
+    <div class="lib-tabs">
+      <button type="button" class="lib-tab active" data-lib="saved">Saved cards</button>
+      <button type="button" class="lib-tab" data-lib="books">Books</button>
+    </div>
+    <div id="library-list" class="library-list"></div>
+  </main>
 
+  <!-- PROFILE -->
+  <main id="view-profile" class="view">
+    <section class="page-intro">
+      <h1>Profile</h1>
+      <p>Local prefs for this browser. Nothing is uploaded.</p>
+    </section>
+    <div class="profile-card">
+      <div class="profile-avatar" id="profile-avatar">G</div>
+      <div>
+        <label class="field-label" for="display-name">Display name</label>
+        <input type="text" id="display-name" placeholder="Your name" maxlength="40">
+      </div>
+    </div>
+    <div class="profile-stats" id="profile-stats"></div>
+    <div class="profile-actions">
+      <button type="button" class="btn ghost" id="clear-library">Clear saved library</button>
+      <button type="button" class="btn ghost danger" id="reset-all">Reset all local data</button>
+    </div>
+    <p class="profile-note">Grokipedia / Failures is an unofficial community board. Portraits via Wikimedia when available.</p>
+  </main>
+
+  <!-- Bottom nav -->
+  <nav class="bottom-nav" aria-label="Main">
+    <button type="button" class="nav-btn active" data-nav="home" aria-label="Home">
+      <span class="nav-icon">⌂</span><span>Home</span>
+    </button>
+    <button type="button" class="nav-btn" data-nav="browse" aria-label="Browse">
+      <span class="nav-icon">▦</span><span>Browse</span>
+    </button>
+    <button type="button" class="nav-btn" data-nav="library" aria-label="Library">
+      <span class="nav-icon">☰</span><span>Library</span>
+    </button>
+    <button type="button" class="nav-btn" data-nav="profile" aria-label="Profile">
+      <span class="nav-icon">◎</span><span>Profile</span>
+    </button>
+  </nav>
+
+  <!-- Modal -->
   <div class="modal" id="modal" hidden>
     <div class="modal-backdrop" id="modal-backdrop"></div>
     <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -51,6 +127,9 @@
           <h2 id="modal-title"></h2>
           <p class="modal-fail" id="modal-fail"></p>
         </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn primary sm" id="save-btn">Save to library</button>
       </div>
       <div class="modal-body" id="modal-body"></div>
     </div>
