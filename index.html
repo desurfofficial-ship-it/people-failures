@@ -25,10 +25,8 @@
     </div>
   </header>
 
-  <!-- HOME -->
   <main id="view-home" class="view active">
     <div class="home-scroll">
-      <!-- Greeting strip -->
       <section class="home-greet">
         <div>
           <p class="greet-line" id="greet-line">Welcome back</p>
@@ -39,7 +37,6 @@
         </div>
       </section>
 
-      <!-- Daily pick — big card -->
       <section class="home-section">
         <div class="sec-label">
           <span>Daily pick</span>
@@ -48,15 +45,14 @@
         <button type="button" class="daily-card" id="daily-card"></button>
       </section>
 
-      <!-- Quick actions -->
       <section class="home-section">
         <div class="quick-row">
           <button type="button" class="quick" data-nav="browse">
             <span class="q-icon">▦</span>
-            <span class="q-label">Browse all</span>
+            <span class="q-label">Browse</span>
           </button>
           <button type="button" class="quick" data-nav="library">
-            <span class="q-icon">Bookmark</span>
+            <span class="q-icon">▤</span>
             <span class="q-label">Library</span>
           </button>
           <button type="button" class="quick" id="quick-random">
@@ -70,13 +66,11 @@
         </div>
       </section>
 
-      <!-- Categories -->
       <section class="home-section">
         <div class="sec-label"><span>Categories</span></div>
         <div class="cat-scroll" id="cat-scroll"></div>
       </section>
 
-      <!-- Continue / Saved strip -->
       <section class="home-section" id="saved-section" hidden>
         <div class="sec-label">
           <span>Saved</span>
@@ -85,7 +79,6 @@
         <div class="h-scroll" id="saved-row"></div>
       </section>
 
-      <!-- Trending-style list -->
       <section class="home-section">
         <div class="sec-label">
           <span>Worth opening</span>
@@ -94,7 +87,6 @@
         <div class="list-stack" id="worth-list"></div>
       </section>
 
-      <!-- Books strip -->
       <section class="home-section last">
         <div class="sec-label">
           <span>Books from the board</span>
@@ -105,7 +97,6 @@
     </div>
   </main>
 
-  <!-- BROWSE -->
   <main id="view-browse" class="view">
     <div class="browse-toolbar">
       <div class="chip-row" id="chip-row"></div>
@@ -113,7 +104,6 @@
     <div class="board" id="board"></div>
   </main>
 
-  <!-- LIBRARY -->
   <main id="view-library" class="view">
     <div class="page-top">
       <h1>Library</h1>
@@ -126,7 +116,6 @@
     <div id="library-list" class="library-list"></div>
   </main>
 
-  <!-- PROFILE -->
   <main id="view-profile" class="view">
     <div class="page-top">
       <h1>Profile</h1>
@@ -186,6 +175,7 @@
   </div>
 
   <script src="data.js"></script>
+  <script src="data-extra.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

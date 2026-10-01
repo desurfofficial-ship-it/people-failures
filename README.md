@@ -1,29 +1,21 @@
-# Grokipedia / Failures Board
+# Famous Failures — Grokipedia Board
 
-Kanban-style board of famous failures that preceded success.
+Unofficial community branch: a Kanban-style app of famous setbacks that came before the wins.
 
-**Live (GitHub Pages):** https://desurfofficial-ship-it.github.io/people-failures/
+**Live:** https://desurfofficial-ship-it.github.io/people-failures/
 
-## Layout
+## Features
 
-Horizontal scrollable columns by category:
+- **Home** — daily pick, quick actions, categories, saved strip, books
+- **Browse** — full board by category + search
+- **Library** — saved playbooks + book list (local only)
+- **Profile** — display name + stats
+- Each card opens a **playbook**: story, what they did, how to apply, scenarios, resources, takeaway, book, what you get from the book
 
-- Technology
-- Business
-- Literature
-- Science
-- Sports
-- Entertainment
-- Politics & Fashion
+## Stack
 
-Each card is a short entry: name, the failure, a brief note, and year.
+Static HTML / CSS / JS. Data in `data.js` + `data-extra.js`. No backend.
 
-## Design
+## Local
 
-Intentionally more “board tool” than glossy marketing page — IBM Plex, muted surfaces, colored column dots, compact cards.
-
-## Enable Pages
-
-Repo Settings → Pages → Deploy from branch `main` / root.
-
-Not an official xAI / Grokipedia product.
+Open `index.html` in a browser, or serve the folder with any static server.
