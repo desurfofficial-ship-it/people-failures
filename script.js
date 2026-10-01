@@ -7,6 +7,11 @@
   var categories = [
     { key: 'Technology', dot: 'tech', color: '#38bdf8' },
     { key: 'Business', dot: 'business', color: '#a78bfa' },
+    { key: 'Companies', dot: 'companies', color: '#f43f5e' },
+    { key: 'Products', dot: 'products', color: '#06b6d4' },
+    { key: 'Games', dot: 'games', color: '#a855f7' },
+    { key: 'Films', dot: 'films', color: '#eab308' },
+    { key: 'Projects', dot: 'projects', color: '#84cc16' },
     { key: 'Literature', dot: 'literature', color: '#f472b6' },
     { key: 'Science', dot: 'science', color: '#34d399' },
     { key: 'Sports', dot: 'sports', color: '#fb923c' },
@@ -105,7 +110,6 @@
     el.addEventListener('click', function () { openModal(d); });
   }
 
-  // ── HOME ──
   function renderHome() {
     var name = '';
     try { name = localStorage.getItem(NAME_KEY) || ''; } catch (e) {}
@@ -140,6 +144,7 @@
     categories.forEach(function (cat) {
       var n = 0;
       for (var i = 0; i < data.length; i++) if (data[i].category === cat.key) n++;
+      if (!n) return;
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'cat-pill';
@@ -182,10 +187,9 @@
   function renderWorth() {
     var list = $('#worth-list');
     list.innerHTML = '';
-    // deterministic-ish mix: first of each category-ish
     var picks = [];
     var used = {};
-    var order = [0, 3, 7, 12, 18, 22, 28, 35];
+    var order = [0, 3, 7, 12, 18, 22, 28, 35, 50, 80, 120, 200];
     for (var i = 0; i < order.length; i++) {
       var idx = order[i] % data.length;
       if (!used[data[idx].id]) {
@@ -224,7 +228,6 @@
     });
   }
 
-  // ── BROWSE ──
   function renderChips() {
     var row = $('#chip-row');
     row.innerHTML = '';
@@ -298,7 +301,6 @@
     }
   }
 
-  // ── LIBRARY ──
   function renderLibrary() {
     $$('.lib-tab').forEach(function (t) {
       t.classList.toggle('active', t.getAttribute('data-lib') === libTab);
