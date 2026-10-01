@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Failures — Grokipedia</title>
-  <meta name="description" content="Famous failures playbooks. Browse, save, learn.">
+  <meta name="description" content="Famous failures playbooks. 500+ stories.">
   <meta name="theme-color" content="#0f0f12">
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +24,6 @@
       <input type="search" id="search" placeholder="Search…" aria-label="Search" autocomplete="off">
     </div>
   </header>
-
   <main id="view-home" class="view active">
     <div class="home-scroll">
       <section class="home-greet">
@@ -32,14 +31,10 @@
           <p class="greet-line" id="greet-line">Welcome back</p>
           <h1 id="home-title">Today’s failure fuel</h1>
         </div>
-        <div class="greet-stats">
-          <span id="stat-total">0</span> stories
-        </div>
+        <div class="greet-stats"><span id="stat-total">0</span> stories</div>
       </section>
       <section class="home-section">
-        <div class="sec-label"><span>Daily pick</span>
-          <button type="button" class="text-btn" id="reshuffle">New pick</button>
-        </div>
+        <div class="sec-label"><span>Daily pick</span><button type="button" class="text-btn" id="reshuffle">New pick</button></div>
         <button type="button" class="daily-card" id="daily-card"></button>
       </section>
       <section class="home-section">
@@ -55,31 +50,23 @@
         <div class="cat-scroll" id="cat-scroll"></div>
       </section>
       <section class="home-section" id="saved-section" hidden>
-        <div class="sec-label"><span>Saved</span>
-          <button type="button" class="text-btn" data-nav="library">See all</button>
-        </div>
+        <div class="sec-label"><span>Saved</span><button type="button" class="text-btn" data-nav="library">See all</button></div>
         <div class="h-scroll" id="saved-row"></div>
       </section>
       <section class="home-section">
-        <div class="sec-label"><span>Worth opening</span>
-          <button type="button" class="text-btn" data-nav="browse">Board</button>
-        </div>
+        <div class="sec-label"><span>Worth opening</span><button type="button" class="text-btn" data-nav="browse">Board</button></div>
         <div class="list-stack" id="worth-list"></div>
       </section>
       <section class="home-section last">
-        <div class="sec-label"><span>Books from the board</span>
-          <button type="button" class="text-btn" data-lib-jump>Library</button>
-        </div>
+        <div class="sec-label"><span>Books from the board</span><button type="button" class="text-btn" data-lib-jump>Library</button></div>
         <div class="h-scroll" id="books-row"></div>
       </section>
     </div>
   </main>
-
   <main id="view-browse" class="view">
     <div class="browse-toolbar"><div class="chip-row" id="chip-row"></div></div>
     <div class="board" id="board"></div>
   </main>
-
   <main id="view-library" class="view">
     <div class="page-top"><h1>Library</h1><p>Saved on this device only</p></div>
     <div class="lib-tabs">
@@ -88,9 +75,8 @@
     </div>
     <div id="library-list" class="library-list"></div>
   </main>
-
   <main id="view-profile" class="view">
-    <div class="page-top"><h1>Profile</h1><p>Local only · nothing uploaded</p></div>
+    <div class="page-top"><h1>Profile</h1><p>Local only</p></div>
     <div class="profile-card">
       <div class="profile-avatar" id="profile-avatar">G</div>
       <div class="profile-fields">
@@ -103,36 +89,29 @@
       <button type="button" class="btn ghost" id="clear-library">Clear saved library</button>
       <button type="button" class="btn ghost danger" id="reset-all">Reset all local data</button>
     </div>
-    <p class="profile-note">Unofficial Grokipedia community board.</p>
   </main>
-
   <nav class="bottom-nav" aria-label="Main">
     <button type="button" class="nav-btn active" data-nav="home"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5z"/></svg><span>Home</span></button>
     <button type="button" class="nav-btn" data-nav="browse"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Browse</span></button>
     <button type="button" class="nav-btn" data-nav="library"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>Library</span></button>
     <button type="button" class="nav-btn" data-nav="profile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><span>Profile</span></button>
   </nav>
-
   <div class="modal" id="modal" hidden>
     <div class="modal-backdrop" id="modal-backdrop"></div>
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-panel" role="dialog" aria-modal="true">
       <button type="button" class="modal-close" id="modal-close" aria-label="Close">×</button>
       <div class="modal-header">
         <div class="modal-avatar" id="modal-avatar"></div>
-        <div>
-          <p class="modal-cat" id="modal-cat"></p>
-          <h2 id="modal-title"></h2>
-          <p class="modal-fail" id="modal-fail"></p>
-        </div>
+        <div><p class="modal-cat" id="modal-cat"></p><h2 id="modal-title"></h2><p class="modal-fail" id="modal-fail"></p></div>
       </div>
       <div class="modal-actions"><button type="button" class="btn primary sm" id="save-btn">Save to library</button></div>
       <div class="modal-body" id="modal-body"></div>
     </div>
   </div>
-
   <script src="data.js"></script>
   <script src="data-extra.js"></script>
-  <script src="data-mega.js"></script>
+  <script src="data-mega-1.js"></script>
+  <script src="data-mega-2.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
